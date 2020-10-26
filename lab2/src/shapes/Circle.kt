@@ -1,6 +1,6 @@
 package shapes
 
-class Circle(private val radius: Double) : BaseShape() {
+class Circle(val radius: Double) : BaseShape {
 
     init {
         if (!validate()) {
@@ -14,7 +14,7 @@ class Circle(private val radius: Double) : BaseShape() {
 
     override fun calculatePerimeter(): Double = 2 * Math.PI * radius
 
-    override fun printShapeInfo() {
-        println("Circle with radius: $radius, area: ${calculateArea()}, perimeter: ${calculatePerimeter()}")
+    override fun toString(): String {
+        return "Circle with radius: $radius, area: ${calculateArea()}, perimeter: ${calculatePerimeter()}"
     }
 }

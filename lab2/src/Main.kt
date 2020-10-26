@@ -26,12 +26,8 @@ fun main() {
     val maxPerimeterShape = shapes.maxBy { it.calculatePerimeter() }
 
     println("Area Sum: $areaSum")
-    println("Max Area Shape: ")
-    maxAreaShape?.printShapeInfo()
-    println("Min Area Shape: ")
-    minAreaShape?.printShapeInfo()
-    println("Min Perimeter Shape: ")
-    minPerimeterShape?.printShapeInfo()
-    println("Max Perimeter Shape: ")
-    maxPerimeterShape?.printShapeInfo()
+    println("Max Area Shape: $maxAreaShape")
+    println("Min Area Shape: $minAreaShape")
+    println("Min Perimeter Shape: $minPerimeterShape")
+    println("Max Perimeter Shape: $maxPerimeterShape")
 }

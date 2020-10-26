@@ -2,8 +2,8 @@ package shapes
 
 import kotlin.math.sqrt
 
-class Triangle(private val firstSide: Double, private val secondSide: Double, private val thirdSide: Double) :
-    BaseShape() {
+class Triangle(val firstSide: Double, val secondSide: Double, val thirdSide: Double) :
+    BaseShape {
 
     init {
         if (!validate()) {
@@ -25,7 +25,7 @@ class Triangle(private val firstSide: Double, private val secondSide: Double, pr
 
     override fun calculatePerimeter(): Double = firstSide + secondSide + thirdSide
 
-    override fun printShapeInfo() {
-        println("Triangle with sides size: $firstSide, $secondSide, $thirdSide, area: ${calculateArea()}, perimeter: ${calculatePerimeter()}")
+    override fun toString(): String {
+        return "Triangle with sides size: $firstSide, $secondSide, $thirdSide, area: ${calculateArea()}, perimeter: ${calculatePerimeter()}"
     }
 }

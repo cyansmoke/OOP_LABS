@@ -33,8 +33,16 @@ fun main() {
         "Morrison",
         arrayListOf(PhoneNumber("903133", PhoneType.HOME))
     )
-    phoneBook[1] = newContact;
+    val oneMoreNewContact = Contact(
+        "Freddie",
+        "Mercury",
+        arrayListOf(PhoneNumber("+7903133", PhoneType.MOBILE))
+    )
+    phoneBook[1] = newContact
     println(phoneBook[1])
     phoneBook.remove(newContact)
+    println(phoneBook)
+    phoneBook.add(newContact)
+    phoneBook.updateContact(newContact, oneMoreNewContact)
     println(phoneBook);
 }

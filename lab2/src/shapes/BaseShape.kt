@@ -1,8 +1,7 @@
 package shapes
 
-abstract class BaseShape {
-    protected abstract fun validate(): Boolean
-    abstract fun calculateArea(): Double
-    abstract fun calculatePerimeter(): Double
-    abstract fun printShapeInfo()
+interface BaseShape {
+    fun validate(): Boolean
+    fun calculateArea(): Double
+    fun calculatePerimeter(): Double
 }

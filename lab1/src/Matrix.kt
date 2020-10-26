@@ -10,8 +10,9 @@ class Matrix(private var matrixSize: MatrixSize) {
 
     constructor(size: MatrixSize, initMatrix: Array<Array<Double>>): this(size) {
         if (initMatrix.isNotEmpty() && initMatrix[0].isNotEmpty()) {
-            matrix = initMatrix;
-            if (size.x != initMatrix.size || size.y != initMatrix[0].size) {
+            matrix = initMatrix.map { it.clone() }.toTypedArray();
+            val isCorrectArraysSize = initMatrix.all { it.size == size.y }
+            if (size.x != initMatrix.size || !isCorrectArraysSize) {
                 throw IllegalArgumentException("Wrong matrix size")
             }
         } else {
@@ -132,7 +133,7 @@ class Matrix(private var matrixSize: MatrixSize) {
     }
 
     fun getArray(): Array<Array<Double>> {
-        return this.matrix;
+        return this.matrix.map { it.clone() }.toTypedArray();
     }
 
     override fun toString(): String {
