@@ -32,6 +32,14 @@ fun main() {
         Rectangle(1.2, 34.5),
         Rectangle(4.2, 3.5)
     )
+
+    writeToFile(triangles)
+    writeToFile(rectangles)
+    writeToFile(circles)
+    writeToFile(squares)
+
+    val readedRectangles = readFromFile(Array<Rectangle>::class.java)
+    val readedCircles = readFromFile(Array<Circle>::class.java)
 }
 
 inline fun <reified T : BaseShape> readFromFile(clazz: Class<Array<T>>): List<T> {
