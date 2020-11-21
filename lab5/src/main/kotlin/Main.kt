@@ -1,7 +1,9 @@
 import com.google.gson.Gson
 import shapes.*
+import java.io.FileNotFoundException
 import java.io.FileReader
 import java.io.FileWriter
+import java.io.IOException
 
 
 val gson = Gson()
@@ -30,22 +32,25 @@ fun main() {
         Rectangle(1.2, 34.5),
         Rectangle(4.2, 3.5)
     )
-
-    writeToFile(triangles)
-
-    val readTriangles = readFromFile(Array<Triangle>::class.java)
-
-    print(readTriangles[0].firstSide)
 }
 
 inline fun <reified T : BaseShape> readFromFile(clazz: Class<Array<T>>): List<T> {
-    FileReader("output_${clazz.simpleName.replace("[]", "")}.json").use {
-        return gson.fromJson(it, clazz).toList()
+    try {
+        FileReader("output_${clazz.simpleName.replace("[]", "")}.json").use {
+            return gson.fromJson(it, clazz).toList()
+        }
+    } catch (e: FileNotFoundException) {
+        println("File not found")
+        return listOf()
     }
 }
 
 inline fun <reified RT : BaseShape> writeToFile(listOfShape: List<RT>) {
-    FileWriter("output_${RT::class.java.simpleName}.json").use {
-        gson.toJson(listOfShape, it)
+    try {
+        FileWriter("output_${RT::class.java.simpleName}.json").use {
+            gson.toJson(listOfShape, it)
+        }
+    } catch (e: IOException) {
+        println("Can't create file or can't edit it")
     }
 }
