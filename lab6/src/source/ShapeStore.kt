@@ -17,7 +17,7 @@ class ShapeStore(private val sourcePath: String) {
             gsonBuilder.registerTypeAdapter(BaseShape::class.java, InterfaceAdapter())
             return gsonBuilder.create().fromJson(reader, type)
         } catch (e: Exception) {
-            throw e
+            print(e)
         }
         return listOf()
     }
@@ -29,12 +29,11 @@ class ShapeStore(private val sourcePath: String) {
             val gsonBuilder = GsonBuilder()
             val type = object : TypeToken<List<BaseShape>>() {}.type
             gsonBuilder.registerTypeAdapter(BaseShape::class.java, InterfaceAdapter())
-            print(gsonBuilder.create().toJson(shapes, type))
             gsonBuilder.create().toJson(shapes, type, writer)
             writer.flush()
             writer.close()
         } catch (e: Exception) {
-            throw e
+            print(e)
         }
     }
 }
