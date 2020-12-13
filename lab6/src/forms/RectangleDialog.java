@@ -11,6 +11,7 @@ public class RectangleDialog extends JDialog {
     private JButton buttonCancel;
     private JTextField widthText;
     private JTextField heightText;
+    private JLabel errorLabel;
 
     public RectangleDialog(OnCreateListener onCreateListener) {
         setContentPane(contentPane);
@@ -19,10 +20,17 @@ public class RectangleDialog extends JDialog {
         setTitle("Create Rectangle");
 
         buttonOK.addActionListener(e -> {
-            double width = Double.parseDouble(widthText.getText());
-            double height = Double.parseDouble(heightText.getText());
-            onCreateListener.create(new Rectangle(width, height));
-            dispose();
+            double width = 0;
+            double height = 0;
+            try {
+                width = Double.parseDouble(widthText.getText());
+                height = Double.parseDouble(heightText.getText());
+                Rectangle rectangle = new Rectangle(width, height);
+                onCreateListener.create(rectangle);
+                dispose();
+            } catch (Exception err) {
+                errorLabel.setVisible(true);
+            }
         });
 
         buttonCancel.addActionListener(new ActionListener() {

@@ -36,6 +36,7 @@ public class Main extends JDialog {
             int index = shapesList.getSelectedIndex();
             if (index >= 0 && index < shapes.size()) {
                 Collections.swap(shapes, index, index + 1);
+                shapesStore.write(shapes);
                 shapesList.setListData(shapes.toArray());
             }
         });
@@ -43,17 +44,20 @@ public class Main extends JDialog {
             int index = shapesList.getSelectedIndex();
             if (index >= 0 && index < shapes.size()) {
                 Collections.swap(shapes, index - 1, index);
+                shapesStore.write(shapes);
                 shapesList.setListData(shapes.toArray());
             }
         });
         removeButton.addActionListener(e -> {
             shapes.remove(shapesList.getSelectedIndex());
+            shapesStore.write(shapes);
             shapesList.setListData(shapes.toArray());
         });
 
         createSquareButton.addActionListener(e -> {
             SquareDialog squareDialog = new SquareDialog(shape -> {
                 shapes.add(shape);
+                shapesStore.write(shapes);
                 shapesList.setListData(shapes.toArray());
             });
             squareDialog.setVisible(true);
@@ -62,6 +66,7 @@ public class Main extends JDialog {
         createRectangleButton.addActionListener(e -> {
             RectangleDialog rectangleDialog = new RectangleDialog(shape -> {
                shapes.add(shape);
+               shapesStore.write(shapes);
                shapesList.setListData(shapes.toArray());
             });
             rectangleDialog.setVisible(true);
@@ -70,6 +75,7 @@ public class Main extends JDialog {
         createCircleButton.addActionListener(e -> {
             CircleDialog circleDialog = new CircleDialog(shape -> {
                 shapes.add(shape);
+                shapesStore.write(shapes);
                 shapesList.setListData(shapes.toArray());
             });
             circleDialog.setVisible(true);
@@ -78,19 +84,11 @@ public class Main extends JDialog {
         createTriangleButton.addActionListener(e -> {
             TriangleDialog triangleDialog = new TriangleDialog(shape -> {
                 shapes.add(shape);
+                shapesStore.write(shapes);
                 shapesList.setListData(shapes.toArray());
             });
             triangleDialog.setVisible(true);
             triangleDialog.pack();
-        });
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.out.println("here");
-                shapesStore.write(shapes);
-                e.getWindow().dispose();
-            }
         });
 
         setVisible(true);

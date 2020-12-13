@@ -29,6 +29,7 @@ class ShapeStore(private val sourcePath: String) {
             val gsonBuilder = GsonBuilder()
             val type = object : TypeToken<List<BaseShape>>() {}.type
             gsonBuilder.registerTypeAdapter(BaseShape::class.java, InterfaceAdapter())
+            print(gsonBuilder.create().toJson(shapes, type))
             gsonBuilder.create().toJson(shapes, type, writer)
             writer.flush()
             writer.close()

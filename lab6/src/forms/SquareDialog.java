@@ -10,17 +10,24 @@ public class SquareDialog extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField sideText;
+    private JLabel errorLabel;
 
     public SquareDialog(OnCreateListener onCreateListener) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setTitle("Create Square");
+        errorLabel.setVisible(false);
 
         buttonOK.addActionListener(e -> {
-            double side = Double.parseDouble(sideText.getText());
-            onCreateListener.create(new Square(side));
-            dispose();
+            try {
+                double side = Double.parseDouble(sideText.getText());
+                Square square = new Square(side);
+                onCreateListener.create(square);
+                dispose();
+            } catch (Exception err) {
+                errorLabel.setVisible(true);
+            }
         });
 
         buttonCancel.addActionListener(new ActionListener() {

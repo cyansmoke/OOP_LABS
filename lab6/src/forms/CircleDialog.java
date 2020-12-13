@@ -10,17 +10,23 @@ public class CircleDialog extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField radiusText;
+    private JLabel errorLabel;
 
     public CircleDialog(OnCreateListener onCreateListener) {
         setContentPane(contentPane);
         setModal(true);
         setTitle("Create circle");
         getRootPane().setDefaultButton(buttonOK);
-
+        errorLabel.setVisible(false);
         buttonOK.addActionListener(e -> {
-            double radius = Double.parseDouble(radiusText.getText());
-            onCreateListener.create(new Circle(radius));
-            dispose();
+            try {
+                double radius = Double.parseDouble(radiusText.getText());
+                Circle circle = new Circle(radius);
+                onCreateListener.create(circle);
+                dispose();
+            } catch (Exception err) {
+                errorLabel.setVisible(true);
+            }
         });
 
         buttonCancel.addActionListener(new ActionListener() {

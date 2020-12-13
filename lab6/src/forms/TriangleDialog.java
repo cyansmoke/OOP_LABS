@@ -12,19 +12,25 @@ public class TriangleDialog extends JDialog {
     private JTextField secondSideText;
     private JTextField firstSideText;
     private JTextField thirdSideText;
+    private JLabel errorLabel;
 
     public TriangleDialog(OnCreateListener onCreateListener) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setTitle("Create Triangle");
-
+        errorLabel.setVisible(false);
         buttonOK.addActionListener(e -> {
-            double first = Double.parseDouble(firstSideText.getText());
-            double second = Double.parseDouble(secondSideText.getText());
-            double third = Double.parseDouble(thirdSideText.getText());
-            onCreateListener.create(new Triangle(first, second, third));
-            dispose();
+            try {
+                double first = Double.parseDouble(firstSideText.getText());
+                double second = Double.parseDouble(secondSideText.getText());
+                double third = Double.parseDouble(thirdSideText.getText());
+                Triangle triangle = new Triangle(first, second, third);
+                onCreateListener.create(triangle);
+                dispose();
+            } catch (Exception err) {
+                errorLabel.setVisible(true);
+            }
         });
 
         buttonCancel.addActionListener(new ActionListener() {
